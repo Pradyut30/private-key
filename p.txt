@@ -76,3 +76,20 @@ hpesupport:
 
 root:    }"Q@~v0i1&c@m,HvzOsqD7j)cSdAH/~T
 hpesupport:  85uZ-^DF_rSd4bUvGMiY$-(Uqk2ISa#]
+
+
+
+
+
+
+sudo cp /etc/netplan/60-mvm-mgmt.yaml /etc/netplan/60-mvm-mgmt.yaml.org.bkp.19-feb
+
+sudo cp /etc/netplan/01-base.yaml /etc/netplan/01-base.yaml.org.bkp.19-feb
+
+sudo netplan get > /etc/netplan/netplanoutput.org.bkp.19-feb
+
+vme manager
+
+sudo cp /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml.org.bkp.19-feb
+
+sudo netplan get > /etc/netplan/netplanoutput.org.bkp.19-feb
