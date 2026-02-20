@@ -61,3 +61,74 @@ Conditions:
 OldReplicaSets:  af-cluster-statsd-865d69f865 (0/0 replicas created)
 NewReplicaSet:   af-cluster-statsd-786788bdc7 (1/1 replicas created)
 Events:          <none>
+
+
+
+
+
+[root@dkrdc01-d-scs02 ~]# curl -Iv https://github.com
+* Rebuilt URL to: https://github.com/
+* Uses proxy env variable no_proxy == 'vcfmr.local,localhost,.cluster.local,.svc,127.0.0.1,10.96.0.1,10.96.0.12,10.96.0.0/22,10.224.0.0/19'
+*   Trying 4.225.11.194...
+* TCP_NODELAY set
+* Connected to github.com (4.225.11.194) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
+* Closing connection 0
+curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
+
+
+
+
+
+
+C:\Users\U449378>curl -Iv https://github.com
+* Host github.com:443 was resolved.
+* IPv6: (none)
+* IPv4: 4.225.11.194
+*   Trying 4.225.11.194:443...
+* schannel: disabled automatic use of client certificate
+* ALPN: curl offers http/1.1
+* ALPN: server accepted http/1.1
+* Established connection to github.com (4.225.11.194 port 443) from 10.100.127.29 port 64962
+* using HTTP/1.x
+> HEAD / HTTP/1.1
+> Host: github.com
+> User-Agent: curl/8.16.0
+> Accept: */*
+>
+* Request completely sent off
+* schannel: remote party requests renegotiation
+* schannel: renegotiating SSL/TLS connection
+* schannel: SSL/TLS connection renegotiated
+* schannel: remote party requests renegotiation
+* schannel: renegotiating SSL/TLS connection
+* schannel: SSL/TLS connection renegotiated
+< HTTP/1.1 200 OK
+HTTP/1.1 200 OK
+< Date: Fri, 20 Feb 2026 12:25:30 GMT
+Date: Fri, 20 Feb 2026 12:25:30 GMT
+< Content-Type: text/html; charset=utf-8
+Content-Type: text/html; charset=utf-8
+< Vary: X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, Accept-Language, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With
+Vary: X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, Accept-Language, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With
+< content-language: en-US
+content-language: en-US
+< ETag: W/"51c9249a154a0427f6772c44ec80662c"
+ETag: W/"51c9249a154a0427f6772c44ec80662c"
+< Cache-Control: max-age=0, private, must-revalidate
+Cache-Control: max-age=0, private, must-revalidate
+< Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+Strict-Transport-Security: max-age=31536000; includeSubdomains; preload
+< X-Frame-Options: deny
+X-Frame-Options: deny
+< X-Content-Type-Options: nosniff
+X-Content-Type-Options: nosniff
+< X-XSS-Protection: 0
+X-XSS-Protection: 0
+< Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
