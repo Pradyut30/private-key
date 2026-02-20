@@ -334,3 +334,8 @@ Events:
 
 
 3WTEE747EYMWFNG2
+
+
+
+kubectl run -it --rm debug-pod --namespace airflow-hpe --image=curlimages/curl -- sh
+ 
