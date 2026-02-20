@@ -2,3 +2,35 @@ HTTPS Access:
 https://hprc-h1.it.hpe.com/hprc/
 Login: ek321764
 Password: v*UU2fr!XI8wj}TM
+
+
+[root@dkrdc01-d-scs02 ~]# kubectl logs af-cluster-triggerer-0  -n airflow-hpe -c git-sync --tail=10
+{"logger":"","ts":"2026-02-20 11:45:46.102208","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":2}
+{"logger":"","ts":"2026-02-20 11:45:51.171626","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":3}
+{"logger":"","ts":"2026-02-20 11:45:56.245320","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":4}
+{"logger":"","ts":"2026-02-20 11:46:01.321535","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":5}
+{"logger":"","ts":"2026-02-20 11:46:06.414166","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":6}
+{"logger":"","ts":"2026-02-20 11:46:11.484124","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":7}
+{"logger":"","ts":"2026-02-20 11:46:16.552753","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":8}
+{"logger":"","ts":"2026-02-20 11:46:21.621401","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":9}
+{"logger":"","ts":"2026-02-20 11:46:26.689966","caller":{"file":"main.go","line":927},"msg":"error syncing repo, will retry","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":10}
+{"logger":"","ts":"2026-02-20 11:46:31.759925","caller":{"file":"main.go","line":924},"msg":"too many failures, aborting","error":"Run(git fetch https://github.com/HPEEzmeral/aie-tutorials.git aie-1.11.0 --verbose --no-progress --prune --no-auto-gc --depth 1): exit status 128: { stdout: \"\", stderr: \"fatal: unable to access 'https://github.com/HPEEzmeral/aie-tutorials.git/': Recv failure: Connection reset by peer\" }","failCount":11}
+[root@dkrdc01-d-scs02 ~]# curl -vvv https://github.com/HPEEzmeral/aie-tutorials.git
+* Uses proxy env variable no_proxy == 'vcfmr.local,localhost,.cluster.local,.svc,127.0.0.1,10.96.0.1,10.96.0.12,10.96.0.0/22,10.224.0.0/19'
+*   Trying 4.225.11.194...
+* TCP_NODELAY set
+* Connected to github.com (4.225.11.194) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
+* Closing connection 0
+curl: (35) OpenSSL SSL_connect: SSL_ERROR_SYSCALL in connection to github.com:443
+
+
+
+
+
