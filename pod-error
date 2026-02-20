@@ -338,4 +338,6 @@ Events:
 
 
 kubectl run -it --rm debug-pod --namespace airflow-hpe --image=curlimages/curl -- sh
- 
+
+
+curl -vI https://github.com/HPEEzmeral/aie-tutorials.git
