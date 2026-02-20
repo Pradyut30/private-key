@@ -132,3 +132,82 @@ X-Content-Type-Options: nosniff
 < X-XSS-Protection: 0
 X-XSS-Protection: 0
 < Referrer-Policy: origin-when-cross-origin, strict-origin-when-cross-origin
+
+
+
+
+
+
+
+
+[root@dkrdc01-d-scs02 ~]# curl -Iv https://common.cloud.hpe.com
+* Rebuilt URL to: https://common.cloud.hpe.com/
+* Uses proxy env variable no_proxy == 'vcfmr.local,localhost,.cluster.local,.svc,127.0.0.1,10.96.0.1,10.96.0.12,10.96.0.0/22,10.224.0.0/19'
+*   Trying 3.164.240.59...
+* TCP_NODELAY set
+* Connected to common.cloud.hpe.com (3.164.240.59) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/pki/tls/certs/ca-bundle.crt
+  CApath: none
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, [no content] (0):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_128_GCM_SHA256
+* ALPN, server accepted to use h2
+* Server certificate:
+*  subject: CN=common.cloud.hpe.com
+*  start date: Dec 17 00:00:00 2025 GMT
+*  expire date: Apr 22 23:59:59 2026 GMT
+*  subjectAltName: host "common.cloud.hpe.com" matched cert's "common.cloud.hpe.com"
+*  issuer: C=US; O=Amazon; CN=Amazon RSA 2048 M04
+*  SSL certificate verify ok.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+* Using Stream ID: 1 (easy handle 0x5640e1fc9710)
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+> HEAD / HTTP/2
+> Host: common.cloud.hpe.com
+> User-Agent: curl/7.61.1
+> Accept: */*
+>
+* TLSv1.3 (IN), TLS handshake, [no content] (0):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS app data, [no content] (0):
+* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+* TLSv1.3 (OUT), TLS app data, [no content] (0):
+* TLSv1.3 (IN), TLS app data, [no content] (0):
+< HTTP/2 200
+HTTP/2 200
+< content-type: text/html
+content-type: text/html
+< content-length: 4924
+content-length: 4924
+< x-amz-replication-status: COMPLETED
+x-amz-replication-status: COMPLETED
+< last-modified: Thu, 29 Jan 2026 04:47:56 GMT
+last-modified: Thu, 29 Jan 2026 04:47:56 GMT
+< x-amz-server-side-encryption: AES256
+x-amz-server-side-encryption: AES256
+< x-amz-version-id: 219OWwzmc3v1D0AAvF6baJ6S3XfwqMJH
+x-amz-version-id: 219OWwzmc3v1D0AAvF6baJ6S3XfwqMJH
+< accept-ranges: bytes
+accept-ranges: bytes
+< server: AmazonS3
+server: AmazonS3
+
