@@ -1,0 +1,330 @@
+[root@dkrdc01-d-scs02 ~]# kubectl describe pod af-cluster-airflowui-0  -n airflow-hpe
+Name:             af-cluster-airflowui-0
+Namespace:        airflow-hpe
+Priority:         0
+Service Account:  airflow-service-account
+Node:             dkrdc01-d-scs02.danfoss.net/10.100.131.22
+Start Time:       Thu, 19 Feb 2026 16:46:03 +0100
+Labels:           apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=af-cluster-airflowui-8f64f77f6
+                  custom-resource=v1alpha1.AirflowCluster
+                  custom-resource-name=af-cluster
+                  custom-resource-namespace=airflow-hpe
+                  hpe-ezua/app=airflow
+                  hpe-ezua/type=app-service-core
+                  security.istio.io/tlsMode=istio
+                  service.istio.io/canonical-name=af-cluster-airflowui
+                  service.istio.io/canonical-revision=latest
+                  sidecar.istio.io/inject=true
+                  statefulset.kubernetes.io/pod-name=af-cluster-airflowui-0
+                  using=airflowcluster.UI
+Annotations:      cni.projectcalico.org/containerID: dba4c013750ba66275b574ee81fac479f740e25a6efc2c5a7ff6b35ca4f3e691
+                  cni.projectcalico.org/podIP: 10.224.27.144/32
+                  cni.projectcalico.org/podIPs: 10.224.27.144/32
+                  istio.io/rev: default
+                  k8s.v1.cni.cncf.io/network-status:
+                    [{
+                        "name": "k8s-pod-network",
+                        "ips": [
+                            "10.224.27.144"
+                        ],
+                        "default": true,
+                        "dns": {}
+                    }]
+                  kubectl.kubernetes.io/default-container: airflow-ui
+                  kubectl.kubernetes.io/default-logs-container: airflow-ui
+                  prometheus.io/path: /stats/prometheus
+                  prometheus.io/port: 15020
+                  prometheus.io/scrape: true
+                  sidecar.istio.io/status:
+                    {"initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["workload-socket","credential-socket","workload-certs","istio-env...
+Status:           Running
+IP:               10.224.27.144
+IPs:
+  IP:           10.224.27.144
+Controlled By:  StatefulSet/af-cluster-airflowui
+Init Containers:
+  postgres-dbcreate:
+    Container ID:  containerd://613421bfc381d43b46017b232a0f9596f5b27151e709fa349f756dc8953fe3fd
+    Image:         10.100.131.32/ezmeral-common/docker.io/bitnamilegacy/postgresql:17.6.0-debian-12-r2
+    Image ID:      10.100.131.32/ezmeral-common/apps-common/docker.io/bitnamilegacy/postgresql@sha256:03011f2cc1d0b3428abedfdf1d11128483aeae94858fc4bfbdcbe2d7c1024bb7
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/bash
+    Args:
+      -c
+
+      pg_isready -h $SQL_HOST -U postgres -t 300 -q;
+      PGPASSWORD=$(SQL_ROOT_PASSWORD) psql -h $SQL_HOST -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = '$(SQL_DB)'" | grep -q 1 || (PGPASSWORD=$(SQL_ROOT_PASSWORD) psql -h $SQL_HOST -U postgres -c "CREATE DATABASE $(SQL_DB)");
+      PGPASSWORD=$(SQL_ROOT_PASSWORD) psql -h $SQL_HOST -U postgres -tc "SELECT 1 FROM pg_roles WHERE rolname='$(SQL_USER)'" | grep -q 1 || (PGPASSWORD=$(SQL_ROOT_PASSWORD) psql -h $SQL_HOST -U postgres -c "CREATE USER $(SQL_USER) WITH ENCRYPTED PASSWORD '$(SQL_PASSWORD)';
+      GRANT ALL PRIVILEGES ON DATABASE $(SQL_DB) TO $(SQL_USER); ALTER DATABASE $(SQL_DB) OWNER TO $(SQL_USER)");
+
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Thu, 19 Feb 2026 16:47:05 +0100
+      Finished:     Thu, 19 Feb 2026 16:47:09 +0100
+    Ready:          True
+    Restart Count:  2
+    Environment:
+      SQL_ROOT_PASSWORD:  <set to the key 'rootpassword' in secret 'af-cluster-airflowui'>  Optional: false
+      SQL_DB:             bjtjovk280bqlur8
+      SQL_USER:           koa14bv97up4fpon
+      SQL_PASSWORD:       <set to the key 'password' in secret 'af-cluster-airflowui'>  Optional: false
+      SQL_HOST:           af-base-sql.airflow-base.svc
+      DB_TYPE:            postgres
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4z5st (ro)
+  istio-init:
+    Container ID:  containerd://f4ccac00f9458f89d6b824c81d1267c5be37debc77f8d7f414f70175ff986d47
+    Image:         10.100.131.32/ezmeral-common/istio/proxyv2:1.26.0
+    Image ID:      10.100.131.32/ezmeral-common/istio/proxyv2@sha256:27191613ad8d9b541cd8a66e7054e5440984ecf2923335f43952ca1992d8af10
+    Port:          <none>
+    Host Port:     <none>
+    Args:
+      istio-iptables
+      -p
+      15001
+      -z
+      15006
+      -u
+      1337
+      -m
+      REDIRECT
+      -i
+      *
+      -x
+
+      -b
+      *
+      -d
+      15090,15021,15020
+      --log_output_level=default:info
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Thu, 19 Feb 2026 16:47:10 +0100
+      Finished:     Thu, 19 Feb 2026 16:47:10 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     2
+      memory:  1Gi
+    Requests:
+      cpu:     100m
+      memory:  128Mi
+    Environment:
+      ISTIO_META_DNS_AUTO_ALLOCATE:  true
+      ISTIO_META_DNS_CAPTURE:        true
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4z5st (ro)
+Containers:
+  airflow-ui:
+    Container ID:  containerd://b98620b7ed1bb57d77a30e54948beacc4565c1172d59101419f25941c4d56355
+    Image:         10.100.131.32/ezmeral-common/hpe-airflow/airflow:ezaf-1.11.0-rc7
+    Image ID:      10.100.131.32/ezmeral-common/hpe-airflow/airflow@sha256:ed765c7768b37927a368e97f7067a98a0d83e47604489655baae6252cc387f35
+    Port:          8080/TCP
+    Host Port:     0/TCP
+    Args:
+      api-server
+    State:          Running
+      Started:      Thu, 19 Feb 2026 16:47:12 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     4
+      memory:  4000Mi
+    Requests:
+      cpu:      400m
+      memory:   2050Mi
+    Liveness:   http-get http://:15020/app-health/airflow-ui/livez delay=30s timeout=5s period=60s #success=1 #failure=2
+    Readiness:  http-get http://:15020/app-health/airflow-ui/readyz delay=30s timeout=5s period=15s #success=1 #failure=5
+    Startup:    http-get http://:15020/app-health/airflow-ui/startupz delay=30s timeout=5s period=5s #success=1 #failure=114
+    Environment:
+      AIRFLOW_CONFIG:                          /usr/local/airflow/aconfig
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN:     <set to the key 'sqlconnstr' in secret 'af-cluster-airflowui'>  Optional: false
+      AIRFLOW__CORE__DAGS_FOLDER:              /usr/local/airflow/dags/gitdags/Data-Engineering/Airflow
+      AIRFLOW__CORE__FERNET_KEY:               <set to the key 'fernet_key' in secret 'af-cluster-airflowui'>               Optional: false
+      AIRFLOW__API__SECRET_KEY:                <set to the key 'secret_key' in secret 'af-cluster-airflowui'>               Optional: false
+      AIRFLOW__CORE__INTERNAL_API_SECRET_KEY:  <set to the key 'internal_api_secret_key' in secret 'af-cluster-airflowui'>  Optional: false
+      AIRFLOW__API_AUTH__JWT_SECRET:           <set to the key 'jwt_secret' in secret 'af-cluster-airflowui'>               Optional: false
+      AIRGAP_REGISTRY:                         10.100.131.32/ezmeral-common/
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      NO_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+    Mounts:
+      /dev/shm from dshm (rw)
+      /usr/local/airflow/ from airflow-configmap-volume (rw)
+      /usr/local/airflow/dags/ from dags-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4z5st (ro)
+  git-sync:
+    Container ID:  containerd://2790ec1ce20523076caca26df4976f50d4f1cd2a6d086943d90b2f4a9f29706a
+    Image:         10.100.131.32/ezmeral-common/registry.k8s.io/git-sync/git-sync:v4.4.2
+    Image ID:      10.100.131.32/ezmeral-common/registry.k8s.io/git-sync/git-sync@sha256:bb0aba8bf9e49571687886594c46eb5a4084061370bff2ac6b94701f5d202674
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /git-sync
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Fri, 20 Feb 2026 07:28:37 +0100
+      Finished:     Fri, 20 Feb 2026 07:29:28 +0100
+    Ready:          False
+    Restart Count:  152
+    Environment:
+      GITSYNC_REPO:          https://github.com/HPEEzmeral/aie-tutorials.git
+      GITSYNC_LINK:          gitdags
+      GITSYNC_REF:           aie-1.11.0
+      GITSYNC_ONE_TIME:      false
+      GITSYNC_MAX_FAILURES:  11
+      GITSYNC_PERIOD:        5s
+      GITSYNC_DEPTH:         1
+      GITSYNC_SYNC_TIMEOUT:  600s
+      GITSYNC_GIT_CONFIG:    safe.directory:*
+      HTTP_PROXY:
+      HTTPS_PROXY:
+      NO_PROXY:
+      http_proxy:
+      https_proxy:
+      no_proxy:
+    Mounts:
+      /git from dags-data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4z5st (ro)
+  istio-proxy:
+    Container ID:  containerd://5c247ab626fb96f952dff1f799ec9e7aaf0b865ffbaafcbda3941173514ab137
+    Image:         10.100.131.32/ezmeral-common/istio/proxyv2:1.26.0
+    Image ID:      10.100.131.32/ezmeral-common/istio/proxyv2@sha256:27191613ad8d9b541cd8a66e7054e5440984ecf2923335f43952ca1992d8af10
+    Port:          15090/TCP
+    Host Port:     0/TCP
+    Args:
+      proxy
+      sidecar
+      --domain
+      $(POD_NAMESPACE).svc.cluster.local
+      --proxyLogLevel=warning
+      --proxyComponentLogLevel=misc:error
+      --log_output_level=default:info
+    State:          Running
+      Started:      Thu, 19 Feb 2026 16:47:13 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     2
+      memory:  1Gi
+    Requests:
+      cpu:      100m
+      memory:   128Mi
+    Readiness:  http-get http://:15021/healthz/ready delay=0s timeout=3s period=15s #success=1 #failure=4
+    Startup:    http-get http://:15021/healthz/ready delay=0s timeout=3s period=1s #success=1 #failure=600
+    Environment:
+      PILOT_CERT_PROVIDER:           istiod
+      CA_ADDR:                       istiod.istio-system.svc:15012
+      POD_NAME:                      af-cluster-airflowui-0 (v1:metadata.name)
+      POD_NAMESPACE:                 airflow-hpe (v1:metadata.namespace)
+      INSTANCE_IP:                    (v1:status.podIP)
+      SERVICE_ACCOUNT:                (v1:spec.serviceAccountName)
+      HOST_IP:                        (v1:status.hostIP)
+      ISTIO_CPU_LIMIT:               2 (limits.cpu)
+      PROXY_CONFIG:                  {"tracing":{"zipkin":{"address":"zipkin.istio-system:9411"}},"proxyMetadata":{"ISTIO_META_DNS_AUTO_ALLOCATE":"true","ISTIO_META_DNS_CAPTURE":"true"}}
+
+      ISTIO_META_POD_PORTS:          [
+                                         {"name":"web","containerPort":8080,"protocol":"TCP"}
+                                     ]
+      ISTIO_META_APP_CONTAINERS:     airflow-ui,git-sync
+      GOMEMLIMIT:                    1073741824 (limits.memory)
+      GOMAXPROCS:                    2 (limits.cpu)
+      ISTIO_META_CLUSTER_ID:         Kubernetes
+      ISTIO_META_NODE_NAME:           (v1:spec.nodeName)
+      ISTIO_META_INTERCEPTION_MODE:  REDIRECT
+      ISTIO_META_WORKLOAD_NAME:      af-cluster-airflowui
+      ISTIO_META_OWNER:              kubernetes://apis/apps/v1/namespaces/airflow-hpe/statefulsets/af-cluster-airflowui
+      ISTIO_META_MESH_ID:            cluster.local
+      TRUST_DOMAIN:                  cluster.local
+      ISTIO_META_DNS_AUTO_ALLOCATE:  true
+      ISTIO_META_DNS_CAPTURE:        true
+      ISTIO_KUBE_APP_PROBERS:        {"/app-health/airflow-ui/livez":{"httpGet":{"path":"/api/v2/monitor/health","port":8080,"scheme":"HTTP"},"timeoutSeconds":5},"/app-health/airflow-ui/readyz":{"httpGet":{"path":"/api/v2/monitor/health","port":8080,"scheme":"HTTP"},"timeoutSeconds":5},"/app-health/airflow-ui/startupz":{"httpGet":{"path":"/api/v2/monitor/health","port":8080,"scheme":"HTTP"},"timeoutSeconds":5}}
+    Mounts:
+      /etc/istio/pod from istio-podinfo (rw)
+      /etc/istio/proxy from istio-envoy (rw)
+      /var/lib/istio/data from istio-data (rw)
+      /var/run/secrets/credential-uds from credential-socket (rw)
+      /var/run/secrets/istio from istiod-ca-cert (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-4z5st (ro)
+      /var/run/secrets/tokens from istio-token (rw)
+      /var/run/secrets/workload-spiffe-credentials from workload-certs (rw)
+      /var/run/secrets/workload-spiffe-uds from workload-socket (rw)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       False
+  ContainersReady             False
+  PodScheduled                True
+Volumes:
+  workload-socket:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  credential-socket:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  workload-certs:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  istio-envoy:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  istio-data:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  istio-podinfo:
+    Type:  DownwardAPI (a volume populated by information about the pod)
+    Items:
+      metadata.labels -> labels
+      metadata.annotations -> annotations
+  istio-token:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  43200
+  istiod-ca-cert:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      istio-ca-root-cert
+    Optional:  false
+  dshm:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     Memory
+    SizeLimit:  <unset>
+  dags-data:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:
+    SizeLimit:  <unset>
+  airflow-configmap-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      af-cluster-airflowui
+    Optional:  false
+  kube-api-access-4z5st:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason   Age                     From     Message
+  ----     ------   ----                    ----     -------
+  Normal   Pulled   13m (x120 over 14h)     kubelet  (combined from similar events): Successfully pulled image "10.100.131.32/ezmeral-common/registry.k8s.io/git-sync/git-sync:v4.4.2" in 403ms (403ms including waiting). Image size: 25977679 bytes.
+  Warning  BackOff  3m46s (x3444 over 14h)  kubelet  Back-off restarting failed container git-sync in pod af-cluster-airflowui-0_airflow-hpe(c78616cd-6304-430c-843c-ef18112563ac)
+  Normal   Pulling  93s (x153 over 14h)     kubelet  Pulling image "10.100.131.32/ezmeral-common/registry.k8s.io/git-sync/git-sync:v4.4.2"
