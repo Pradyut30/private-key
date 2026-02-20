@@ -328,3 +328,9 @@ Events:
   Normal   Pulled   13m (x120 over 14h)     kubelet  (combined from similar events): Successfully pulled image "10.100.131.32/ezmeral-common/registry.k8s.io/git-sync/git-sync:v4.4.2" in 403ms (403ms including waiting). Image size: 25977679 bytes.
   Warning  BackOff  3m46s (x3444 over 14h)  kubelet  Back-off restarting failed container git-sync in pod af-cluster-airflowui-0_airflow-hpe(c78616cd-6304-430c-843c-ef18112563ac)
   Normal   Pulling  93s (x153 over 14h)     kubelet  Pulling image "10.100.131.32/ezmeral-common/registry.k8s.io/git-sync/git-sync:v4.4.2"
+
+
+
+
+
+3WTEE747EYMWFNG2
