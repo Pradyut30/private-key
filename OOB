@@ -1,0 +1,7 @@
+curl -fL -o "kmod-megaraid_sas-07.732.03.00_rhel8u10-1.x86_64.rpm" <a href="https://downloads.hpe.com/pub/softlib2/software1/pubsw-linux/p1285309188/v260114/kmod-megaraid_sas-07.732.03.00_rhel8u10-1.x86_64.rpm" rel="noreferrer noopener" title="https://downloads.hpe.com/pub/softlib2/software1/pubsw-linux/p1285309188/v260114/kmod-megaraid_sas-07.732.03.00_rhel8u10-1.x86_64.rpm" target="_blank">https://downloads.hpe.com/pub/softlib2/software1/pubsw-linux/p1285309188/v260114/kmod-megaraid_sas-07.732.03.00_rhel8u10-1.x86_64.rpm</a>
+
+
+sudo rpm -Uvh --oldpackage --replacefiles --replacepkgs kmod-megaraid_sas-07.732.03.00_rhel8u10-1.x86_64.rpm
+
+
+
