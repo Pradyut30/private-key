@@ -2,3 +2,37 @@ curl -fL -o "kmod-megaraid_sas-07.732.03.00_rhel8u10-1.x86_64.rpm" https://downl
 
 
 sudo rpm -Uvh --oldpackage --replacefiles --replacepkgs kmod-megaraid_sas-07.732.03.00_rhel8u10-1.x86_64.rpm
+
+
+
+
+
+kubectl get pods,rs,deploy,statefulset -A -o json | jq '
+  .items as $all
+  | .items[]
+  | select(.kind == "Pod")
+  | select(any(.spec.containers[]?.resources.limits; has("nvidia.com/gpu")))
+  | {
+     namespace: .metadata.namespace,
+     pod: .metadata.name,
+     controller: (
+       if (.metadata.ownerReferences | length) > 0 then
+         (.metadata.ownerReferences[0] as $oref |
+           if $oref.kind == "ReplicaSet" then
+             ($all[]
+             | select(.kind == "ReplicaSet" and .metadata.name == $oref.name 
+               and .metadata.namespace == .metadata.namespace)
+             | if (.metadata.ownerReferences | length) > 0 then
+                 "\(.metadata.ownerReferences[0].kind)/\(.metadata.ownerReferences[0].name)"
+               else
+                 "ReplicaSet/\($oref.name)"
+               end)
+           else
+             "\($oref.kind)/\($oref.name)"
+           end
+         )
+       else
+         "None"
+       end
+     )
+   }'
