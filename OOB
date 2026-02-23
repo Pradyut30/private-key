@@ -49,3 +49,20 @@ https://downloads.hpe.com/pub/softlib2/software1/pubsw-linux/p2127639462/v274050
 
 
 sudo rpm -ivh NVIDIA_H100_NVL_94GB_GPU_VBIOS-96.00.CE.00.0E-1-0.x86_64.rpm
+
+
+
+
+cd /usr/local/bin/NVIDIA_H100_NVL_94GB_GPU_VBIOS-96.00.CE.00.0E/  
+sudo chmod +x NVIDIA_H100_NVL_94GB_GPU_VBIOS-96.00.CE.00.0E.scexe
+
+
+sudo init 3
+
+sudo bash ./NVIDIA_H100_NVL_94GB_GPU_VBIOS-96.00.CE.00.0E.scexe -f
+
+sudo reboot
+
+
+
+
