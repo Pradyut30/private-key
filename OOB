@@ -36,3 +36,10 @@ kubectl get pods,rs,deploy,statefulset -A -o json | jq '
        end
      )
    }'
+
+
+
+
+
+curl -fL -o "NVIDIA_H100_NVL_94GB_GPU_VBIOS-96.00.CE.00.0E-CEC-00.02.0192.0000.zip" 
+https://downloads.hpe.com/pub/softlib2/software1/pubsw-linux/p2127639462/v274050/NVIDIA_H100_NVL_94GB_GPU_VBIOS-96.00.CE.00.0E-CEC-00.02.0192.0000.zip
